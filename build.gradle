@@ -1,0 +1,50 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group = 'ca.brocku.cosc'
+version = 'v1.0.0'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+springBoot {
+    mainClassName = 'ca.brocku.cosc.geneticprogramming.GeneticprogrammingApplication'
+}
+
+
+bootJar {
+    manifest {
+        attributes 'Start-Class': 'ca.brocku.cosc.geneticprogramming.GeneticprogrammingApplication'
+    }
+}
+
+dependencies {
+    implementation files('libraries/ecj.23.jar')
+    //implementation 'ecj.23.jar'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha1'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

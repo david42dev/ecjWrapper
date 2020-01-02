@@ -1,0 +1,54 @@
+# Copyright 2006 by Sean Luke and George Mason University
+# Licensed under the Academic Free License version 3.0
+# See the file "LICENSE" for more information
+
+parent.0 = ../../../../libraries/ecj/ec/gp/koza/koza.params
+
+# the next four items are already defined in koza.params, but we
+# put them here to be clear.
+
+#additional params
+pop.subpop.0.size = 2000
+generations = 60
+select.tournament.size = 3
+
+# breeding pipelines, override from Koza.params:
+pop.subpop.0.species.pipe = ec.breed.MultiBreedingPipeline
+pop.subpop.0.species.pipe.generate-max = false
+# Subsidiary pipelines:
+pop.subpop.0.species.pipe.num-sources = 3
+pop.subpop.0.species.pipe.source.0 = ec.gp.koza.CrossoverPipeline
+pop.subpop.0.species.pipe.source.0.prob = 0.75
+pop.subpop.0.species.pipe.source.1 = ec.breed.ReproductionPipeline
+pop.subpop.0.species.pipe.source.1.prob = 0.2
+pop.subpop.0.species.pipe.source.2 =  ec.gp.koza.MutationPipeline
+pop.subpop.0.species.pipe.source.2.prob = 0.05
+
+# We have one function set, of class GPFunctionSet
+gp.fs.size = 1
+gp.fs.0 = ec.gp.GPFunctionSet
+# We'll call the function set "f0".
+gp.fs.0.name = f0
+
+# We have five functions in the function set.  They are:
+gp.fs.0.size = 6
+gp.fs.0.func.0 = ca.brocku.cosc.geneticprogramming.problems.terminals.X
+gp.fs.0.func.0.nc = nc0
+gp.fs.0.func.1 = ca.brocku.cosc.geneticprogramming.problems.terminals.Y
+gp.fs.0.func.1.nc = nc0
+gp.fs.0.func.2 = ca.brocku.cosc.geneticprogramming.problems.functions.Add
+gp.fs.0.func.2.nc = nc2
+gp.fs.0.func.3 = ca.brocku.cosc.geneticprogramming.problems.functions.Sub
+gp.fs.0.func.3.nc = nc2
+gp.fs.0.func.4 = ca.brocku.cosc.geneticprogramming.problems.functions.Mul
+gp.fs.0.func.4.nc = nc2
+gp.fs.0.func.5 = ca.brocku.cosc.geneticprogramming.problems.functions.Invert
+gp.fs.0.func.5.nc = nc1
+gp.fs.0.func.6 = ca.brocku.cosc.geneticprogramming.problems.functions.EulerExponential
+gp.fs.0.func.6.nc = nc1
+gp.fs.0.func.7 = ca.brocku.cosc.geneticprogramming.problems.functions.Log
+gp.fs.0.func.7.nc = nc1
+
+eval.problem = ca.brocku.cosc.geneticprogramming.problems.MultiValuedRegression
+eval.problem.data = ca.brocku.cosc.geneticprogramming.problems.DoubleData
+
